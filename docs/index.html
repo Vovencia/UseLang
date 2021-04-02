@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>UseLang Sytax</title>
+    <!-- +---------------------------------------------+ -->
+    <!-- |  Color Name  |         RGB        |   Hex   | -->
+    <!-- |--------------+--------------------+---------| -->
+    <!-- | Black        | rgb(40, 44, 52)    | #282c34 | -->
+    <!-- |--------------+--------------------+---------| -->
+    <!-- | White        | rgb(171, 178, 191) | #abb2bf | -->
+    <!-- |--------------+--------------------+---------| -->
+    <!-- | Light Red    | rgb(224, 108, 117) | #e06c75 | -->
+    <!-- |--------------+--------------------+---------| -->
+    <!-- | Dark Red     | rgb(190, 80, 70)   | #be5046 | -->
+    <!-- |--------------+--------------------+---------| -->
+    <!-- | Green        | rgb(152, 195, 121) | #98c379 | -->
+    <!-- |--------------+--------------------+---------| -->
+    <!-- | Light Yellow | rgb(229, 192, 123) | #e5c07b | -->
+    <!-- |--------------+--------------------+---------| -->
+    <!-- | Dark Yellow  | rgb(209, 154, 102) | #d19a66 | -->
+    <!-- |--------------+--------------------+---------| -->
+    <!-- | Blue         | rgb(97, 175, 239)  | #61afef | -->
+    <!-- |--------------+--------------------+---------| -->
+    <!-- | Magenta      | rgb(198, 120, 221) | #c678dd | -->
+    <!-- |--------------+--------------------+---------| -->
+    <!-- | Cyan         | rgb(86, 182, 194)  | #56b6c2 | -->
+    <!-- |--------------+--------------------+---------| -->
+    <!-- | Gutter Grey  | rgb(76, 82, 99)    | #4b5263 | -->
+    <!-- |--------------+--------------------+---------| -->
+    <!-- | Comment Grey | rgb(92, 99, 112)   | #5c6370 | -->
+    <!-- +---------------------------------------------+ -->
+    <style>
+		html {
+			--background-color: #282c34;
+			--text-color: #abb2bf;
+			--keyword-color: #c678dd;
+			--name-color: #e5c07b;
+			--property-color: #e06c75;
+			--function-color: #61afef;
+			--string-color: #98c379;
+			--number-color: #d19a66;
+			--boolean-color: #d19a66;
+			--comment-color: #5c6370;
+            --operator-color: #56b6c2;
+            --index-color: #4b5263;
+		}
+		html.light {
+			--background-color: rgb(246, 248, 250);
+			--text-color: rgb(36, 41, 46);
+			--keyword-color: rgb(215, 58, 73);
+			--name-color: rgb(36, 41, 46);
+			--property-color: rgb(0, 92, 197);
+			--function-color: rgb(111, 66, 193);
+			--string-color: rgb(3, 47, 98);
+			--number-color: rgb(0, 92, 197);
+			--boolean-color: rgb(0, 92, 197);
+			--comment-color: rgb(106, 115, 125);
+			--operator-color: rgb(0, 92, 197);
+			--index-color: #ccc;
+		}
+		html {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			background: var(--background-color);
+			color: var(--text-color);
+		}
+		body {
+			width: 100%;
+			min-height: 100%;
+			margin: 0;
+			padding: 10px;
+            box-sizing: border-box;
+		}
+		.keyword {
+			color: var(--keyword-color);
+		}
+		.name {
+			color: var(--name-color);
+		}
+		.property {
+			color: var(--property-color);
+		}
+		.function {
+			color: var(--function-color);
+		}
+		.string {
+			color: var(--string-color);
+		}
+		.number {
+			color: var(--number-color);
+		}
+		.boolean {
+			color: var(--boolean-color);
+		}
+		.comment {
+			color: var(--comment-color);
+		}
+        .operator {
+            color: var(--operator-color);
+        }
+		pre,
+		code {
+			margin: 0;
+		}
+        .code {
+            display: table;
+            width: 100%;
+        }
+        .line {
+            display: table-row;
+        }
+        .index,
+        .block {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 1px 0;
+        }
+		.index {
+            white-space: nowrap;
+            text-align: right;
+            padding-right: 10px;
+            color: var(--index-color);
+            user-select: none;
+        }
+        .block {
+            width: 100%;
+        }
+        #toggleScheme {
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 5px 10px;
+            font-size: 14px;
+            line-height: 16px;
+            border: 0;
+            color: #aaa;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none !important;
+            cursor: pointer;
+        }
+		#toggleScheme:after {
+            content: 'Light scheme';
+        }
+		.light #toggleScheme {
+			color: #666;
+			background: rgba(0, 0, 0, 0.2);
+        }
+		.light #toggleScheme:after {
+            content: 'Dark scheme';
+        }
+    </style>
+</head>
+<body>
+<button type="button" id="toggleScheme"></button>
+<pre>
+<code id="codeBlock">
+comment@// one line comment@@
+comment@/*@@
+comment@    multiline comment@@
+comment@*/@@
+keyword@int32@@ name@int32Value@@; comment@// declare variable@@
+keyword@int64@@ name@int64Value2@@ = number@1@@; comment@// declare variable with initial value@@
+name@int32Value@@ operator@:=@@ number@1@@; comment@// declare variable with initial value@@
+name@int64Value@@ operator@:=@@ (keyword@int64@@) number@1@@;
+
+keyword@func@@ name@exampleFunction@@(keyword@string@@ name@str@@, keyword@int32@@ name@num@@) keyword@string@@ {
+    keyword@return@@ name@str@@ operator@+@@ name@num@@;
+}
+
+keyword@interface@@ name@Person@@ {
+    keyword@string@@ property@Name@@;
+    keyword@int32@@ property@age@@;
+    keyword@boolean@@ property@IsWorker@@ operator@=@@ boolean@true@@;
+}
+
+keyword@func@@ name@Person@@({
+    keyword@string@@ name@name@@;
+    keyword@int32@@ name@age@@;
+}) {
+    name@this@@.property@age@@ = name@age@@;
+    name@this@@.property@name@@ = name@name@@;
+}
+
+keyword@func@@ name@SayName@@({
+    keyword@string@@ property@name@@;
+}) keyword@void@@ {
+    function@output@@(property@name@@);
+}
+
+keyword@set@@ name@Age@@({
+    keyword@int32@@ property@age@@;
+}, keyword@int32@@ name@age@@) {
+    keyword@if@@ ( number@0@@ <= name@age@@ <= number@200@@ ) {
+        name@this@@.property@age@@ operator@=@@ name@age@@;
+    } keyword@else@@ {
+        keyword@throw@@ keyword@new@@ name@Error@@(string@"Age should be >= 0 and <= 200"@@)
+    }
+}
+keyword@get@@ name@Age@@({
+    keyword@int32@@ property@age@@;
+}) keyword@int32@@ {
+    keyword@return@@ property@age@@;
+}
+
+keyword@func@@ name@main@@() keyword@int32@@ {
+    [name@createError@@, name@mike@@] operator@:=@@ keyword@new@@ name@Person@@(string@"Mike"@@, number@21@@);
+
+    keyword@throwable@@ name@createError@@ keyword@return@@ number@1@@;
+
+    name@ageError@@ operator@:=@@ name@mike@@.property@Age@@ operator@=@@ number@-1@@;
+
+    keyword@throwable@@ name@ageError@@ keyword@return@@ number@2@@;
+
+    name@mike@@.function@SayName@@();
+
+    keyword@return@@ number@0@@;
+}
+
+</code>
+</pre>
+<script>
+	toggleScheme.addEventListener('click', function() {
+		document.documentElement.classList.toggle('light');
+    });
+	var keywords = [
+		'keyword',
+		'name',
+		'property',
+		'function',
+		'string',
+		'number',
+		'boolean',
+		'comment',
+        'operator',
+	];
+
+	var code = codeBlock.innerHTML;
+	code = code.replaceAll('@@', '</span>');
+	for (const keyword of keywords) {
+		code = code.replaceAll(`${keyword}@`, `<span class="${keyword}">`);
+	}
+
+	code = code.split('\n').map((line, index) => {
+		return `<div class="line"><div class="index">${ index + 1 }</div><div class="block">${line}</div></div>`;
+    }).join('\n');
+
+	code = `<div class="code">${code}</div>`;
+
+	codeBlock.innerHTML = code;
+
+</script>
+</body>
+</html>
