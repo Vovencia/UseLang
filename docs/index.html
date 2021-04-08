@@ -163,60 +163,88 @@ comment@// one line comment@@
 comment@/*@@
 comment@    multiline comment@@
 comment@*/@@
-keyword@int32@@ name@int32Value@@; comment@// declare variable@@
-keyword@int64@@ name@int64Value2@@ = number@1@@; comment@// declare variable with initial value@@
-name@int32Value@@ operator@:=@@ number@1@@; comment@// declare variable with initial value@@
+
+comment@/*@@
+comment@ values with lowerCase name is private (in file) / protected (in class) @@
+comment@ values with UpperCase name is public@@
+comment@*/@@
+
+comment@// declare variable@@
+keyword@int32@@ name@int32Value@@;
+comment@// declare variable with initial value@@
+keyword@int64@@ name@int64Value2@@ = number@1@@;
+comment@// declare variable with initial value@@
+name@int32Value@@ operator@:=@@ number@1@@;
+comment@// declare variable with initial value@@
 name@int64Value@@ operator@:=@@ (keyword@int64@@) number@1@@;
 
+comment@// some function@@
 keyword@func@@ name@exampleFunction@@(keyword@string@@ name@str@@, keyword@int32@@ name@num@@) keyword@string@@ {
     keyword@return@@ name@str@@ operator@+@@ name@num@@;
 }
 
-keyword@interface@@ name@Person@@ {
-    keyword@string@@ property@Name@@;
-    keyword@int32@@ property@age@@;
-    keyword@boolean@@ property@IsWorker@@ operator@=@@ boolean@true@@;
-}
+comment@// public class@@
+name@Person@@ {
+    comment@// public property@@
+    keyword@input@@ keyword@string@@ property@Name@@ operator@=@@ string@""@@;
+    comment@// public value with getter and setter@@
+    keyword@input@@ keyword@int32@@ property@Age@@ (
+        keyword@set@@(keyword@int32@@ name@newAge@@) {
+            keyword@if@@ (property@minAge@@ operator@<=@@ name@newAge@@ operator@<=@@ property@maxAge@@) {
+                keyword@return@@ name@newAge@@; comment@// this value will be written to valueWithSetterGetter property@@
+            }
+            keyword@throw@@ keyword@new@@ name@Error@@(
+                string@``Age should be >= @@{ property@minAge@@ }string@ and <= @@{ property@maxAge@@ }string@``@@
+            );
+        }
+        keyword@get@@(keyword@int32@@ name@currentAge@@) {
+            keyword@return@@ name@currentAge@@; comment@// this value will be return from valueWithSetterGetter property@@
+        }
+    ) operator@=@@ number@0@@;
 
-keyword@func@@ name@Person@@({
-    keyword@string@@ name@name@@;
-    keyword@int32@@ name@age@@;
-}) {
-    name@this@@.property@age@@ = name@age@@;
-    name@this@@.property@name@@ = name@name@@;
-}
+    comment@// create protected property@@
+    property@minAge@@ operator@:=@@ number@0@@;
+    comment@// create protected property@@
+    property@maxAge@@ operator@:=@@ number@200@@;
 
-keyword@func@@ name@SayName@@({
-    keyword@string@@ property@name@@;
-}) keyword@void@@ {
-    function@output@@(property@name@@);
-}
-
-keyword@set@@ name@Age@@({
-    keyword@int32@@ property@age@@;
-}, keyword@int32@@ name@age@@) {
-    keyword@if@@ ( number@0@@ <= name@age@@ <= number@200@@ ) {
-        name@this@@.property@age@@ operator@=@@ name@age@@;
-    } keyword@else@@ {
-        keyword@throw@@ keyword@new@@ name@Error@@(string@"Age should be >= 0 and <= 200"@@)
+    comment@// procedure (return void)@@
+    keyword@proc@@ function@SayName@@() {
+        keyword@if@@ (name@Name@@.function@isEmpty@@()) {
+            keyword@throw@@ keyword@new@@ name@Error@@(string@"Name is empty"@@);
+        }
+        function@log@@(property@Name@@);
+    }
+    comment@// function (return int32)@@
+    keyword@func@@ function@GetAge@@() keyword@int32@@ {
+        keyword@return@@ property@Age@@;
     }
 }
-keyword@get@@ name@Age@@({
-    keyword@int32@@ property@age@@;
-}) keyword@int32@@ {
-    keyword@return@@ property@age@@;
+
+comment@// extends class@@
+name@Worker@@ (name@Person@@) {
+    property@minAge@@ operator@=@@ number@18@@;
+}
+comment@// implements class@@
+name@Person2@@ (keyword@as@@ name@Person@@, name@SomeOtherInterface@@) {
+    comment@// ...@@
 }
 
 keyword@func@@ name@main@@() keyword@int32@@ {
-    [name@createError@@, name@mike@@] operator@:=@@ keyword@new@@ name@Person@@(string@"Mike"@@, number@21@@);
+    name@createError@@, name@mike@@ operator@:=@@ keyword@new@@ name@Person@@(string@"Mike"@@, number@21@@);
 
-    keyword@throwable@@ name@createError@@ keyword@return@@ number@1@@;
+    keyword@if@@ (name@createError@@ operator@!=@@ keyword@nil@@) {
+        keyword@throw@@ name@createError@@ keyword@return@@ number@1@@;
+    }
 
     name@ageError@@ operator@:=@@ name@mike@@.property@Age@@ operator@=@@ number@-1@@;
 
     keyword@throwable@@ name@ageError@@ keyword@return@@ number@2@@;
 
-    name@mike@@.function@SayName@@();
+    keyword@throwable@@ (name@mike@@.property@Age@@ operator@=@@ number@-1@@) keyword@return@@ number@2@@;
+
+    keyword@throwable@@ (name@mike@@.function@SayName@@()) keyword@return@@ number@3@@;
+
+    keyword@throwable@@ (name@sam@@ operator@:=@@ keyword@new@@ name@Worker@@({property@Name@@ = string@"Sam"@@, property@Age@@ = number@17@@})) keyword@return@@ number@1@@;
 
     keyword@return@@ number@0@@;
 }
