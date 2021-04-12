@@ -184,7 +184,7 @@ keyword@func@@ name@exampleFunction@@(keyword@string@@ name@str@@, keyword@int32
 }
 
 comment@// public class@@
-name@Person@@ {
+keyword@class@@ name@Person@@ {
     comment@// public property@@
     keyword@input@@ keyword@string@@ property@Name@@ operator@=@@ string@""@@;
     comment@// public value with getter and setter@@
@@ -207,6 +207,10 @@ name@Person@@ {
     comment@// create protected property@@
     property@maxAge@@ operator@:=@@ number@200@@;
 
+    keyword@init@@ {
+        comment@// Конструкция инициализации@@
+    }
+
     comment@// procedure (return void)@@
     keyword@proc@@ function@SayName@@() {
         keyword@if@@ (name@Name@@.function@isEmpty@@()) {
@@ -220,12 +224,19 @@ name@Person@@ {
     }
 }
 
+keyword@interface@@ name@SomeInterface@@ {
+    keyword@string@@ property@Location@@;
+    function@getLocation@@({
+        keyword@int32@@ name@inputParam@@;
+    }) keyword@string@@;
+}
+
 comment@// extends class@@
-name@Worker@@ (name@Person@@) {
+keyword@input@@ name@Worker@@ (name@Person@@) {
     property@minAge@@ operator@=@@ number@18@@;
 }
 comment@// implements class@@
-name@Person2@@ (keyword@as@@ name@Person@@, name@SomeOtherInterface@@) {
+keyword@input@@ name@Person2@@ (keyword@as@@ name@Person@@, name@SomeInterface@@) {
     comment@// ...@@
 }
 
